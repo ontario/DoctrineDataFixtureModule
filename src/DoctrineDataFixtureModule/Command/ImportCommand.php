@@ -41,7 +41,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @since   2.0
  * @author  Jonathan Wage <jonwage@gmail.com>
  */
-class ImportCommand extends Command implements ServiceLocatorAwareInterface
+class ImportCommand extends Command
 {
     protected $paths;
 
@@ -64,6 +64,11 @@ EOT
             )
             ->addOption('append', null, InputOption::VALUE_NONE, 'Append data to existing data.')
             ->addOption('purge-with-truncate', null, InputOption::VALUE_NONE, 'Truncate tables before inserting data');
+    }
+
+    public __constructor(ServiceLocatorInterface $serviceLocator) {
+        $this->el = $serviceLocator;
+        parent::__constructor;
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -91,25 +96,5 @@ EOT
     public function setEntityManager($em)
     {
         $this->em = $em;
-    }
-
-    /**
-     * Set service locator
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->sl = $serviceLocator;
-    }
-
-    /**
-     * Get service locator
-     *
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->sl;
     }
 }
