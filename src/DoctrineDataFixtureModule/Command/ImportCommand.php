@@ -47,7 +47,7 @@ class ImportCommand extends Command
 
     protected $em;
 
-    protected $sl;
+    protected $serviceLocator;
 
     const PURGE_MODE_TRUNCATE = 2;
 
@@ -67,13 +67,13 @@ EOT
     }
 
     public __constructor(ServiceLocatorInterface $serviceLocator) {
-        $this->el = $serviceLocator;
+        $this->serviceLocator = $serviceLocator;
         parent::__constructor;
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $loader = new Loader($this->sl);
+        $loader = new Loader($this->serviceLocator);
         $purger = new ORMPurger();
 
         if ($input->getOption('purge-with-truncate')) {
