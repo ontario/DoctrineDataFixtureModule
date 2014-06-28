@@ -66,9 +66,10 @@ EOT
             ->addOption('purge-with-truncate', null, InputOption::VALUE_NONE, 'Truncate tables before inserting data');
     }
 
-    public __constructor(ServiceLocatorInterface $serviceLocator) {
+    public __constructor(ServiceLocatorInterface $serviceLocator)
+    {
         $this->serviceLocator = $serviceLocator;
-        parent::__constructor;
+        parent::__constructor();
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
